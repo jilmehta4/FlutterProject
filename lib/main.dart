@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:group_project_2/lenskart.dart';
+import 'package:group_project_2/detail_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,18 +50,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,18 +88,81 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            ElevatedButton(onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SecondRoute(title: "Lenskart"))
+              );
+            }, child: const Text("Shop"))
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Jil',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+}
+class SecondRoute extends StatelessWidget {
+  const SecondRoute({Key? key, required this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+
+    List<Lenskart> lenskartList = [];
+
+    lenskartList.add(Lenskart("Blanc", 37.99, "blanc.jpg", "Crafted from quality acetate, Blanc is an artsy frame that's perfect for putting inspiration in your day to day routine. Get ready to impress with this design's smart square lenses and transparent blue hue."));
+    lenskartList.add(Lenskart("Jupiter", 79.99, "jupiter.jpg", "Jupite is a dapper aviator frame, crafted in stainless steel. The distinctive brow-bar on these eyeglasses looks iconic and striking."));
+    lenskartList.add(Lenskart("Gloss", 51.99, "Gloss.jpg", "New age style meets old school soul. Extra Gloss combines the best of both worlds with its quality acetate design, smooth white finish, and smart round lenses."));
+    lenskartList.add(Lenskart("Tulip", 61.99, "Tulip.jpg", "Tulip features triple rivets and a classic wayfarer shape. These stylish rich-acetate frames are all you need to upgrade your casual, work and party looks."));
+    lenskartList.add(Lenskart("Peony", 49.99, "Peony.jpg", "Peony's thick acetate frames and minimalist details make for an ultra-modern look. Available in stunning hues, these eyeglasses pair well with casual, work and cocktail outfits."));
+    lenskartList.add(Lenskart("Balsam", 47.99, "Balsam.jpg", "Balsam's chunky wayfarer shape and sophisticated hues make for an ultra-modern look. Up-style your daily casual and business attire with these uber-chic eyeglasses."));
+    lenskartList.add(Lenskart("Sabel", 29.99, "Sabel.jpg", "No matter the occasion, Sabel serves a vibe that's both clever and creative. If you're looking to start your day right, make sure this frame's transparent design is part of your favorite outfit."));
+    lenskartList.add(Lenskart("Habit", 69.99, "Habit.jpg", "No matter the occasion, you can count on Habit to bring out the best in your natural face shape. This stainless steel classic comes complete with bold square lenses and a unique silver black tortoise shell finish."));
+    lenskartList.add(Lenskart("Airspace", 79.99, "Aerspace.jpg", "Airspace is the next evolution of aviator sunglasses. Get ready to seize the day in style with this frame's soulful gold finish and quality stainless steel construction."));
+    lenskartList.add(Lenskart("Episode", 101.99, "Episode.jpg", "Lights, camera, action! Rain or shine, Episode's sleek round lenses and gold tortoise shell finish never fail to impress. Crafted from quality stainless steel for durability and extra comfort."));
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body:
+      ListView.builder(
+          padding: const EdgeInsets.all(8),
+          itemCount: lenskartList.length,
+          itemBuilder: (BuildContext context, int index) {
+            return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DetailScreen(lenskart: lenskartList[index])
+                      )
+                  );
+                },
+                child: Card(
+                    color: Colors.blue,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Hero(
+                          tag: lenskartList[index].photo,
+                          child:
+                          Image(
+                              width: 125,
+                              height: 125,
+                              image: AssetImage(
+                                "images/"+ lenskartList[index].photo,
+                              )
+                          ),
+                        ),
+                        Text(lenskartList[index].name),
+                        Text(lenskartList[index].price.toString())
+                      ],)
+                )
+            );
+          }
+      ),
+    ); // This trailing comma makes auto-formatting nicer for build methods.
   }
 }
