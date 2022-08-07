@@ -67,6 +67,7 @@ flutter:
      - images/Peony.jpg
      - images/Tulip.jpg
      - images/Sabel.jpg
+     - images/logo.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
