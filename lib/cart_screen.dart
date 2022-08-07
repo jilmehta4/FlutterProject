@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:group_project_2/components/form.dart';
+import './components/button.dart';
 
 class CartScreen extends StatelessWidget {
 
@@ -10,7 +12,9 @@ class CartScreen extends StatelessWidget {
         Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("Name : "),
+              const Text("Payment method"),
+              MyStatefulWidget(),
+              MyStateWidget()
 
             ]
         ),
@@ -24,7 +28,7 @@ class CartScreen extends StatelessWidget {
       title: Column(
         children: [
           Text(
-            "Your Cart",
+            "Checkout",
             style: TextStyle(color: Colors.black),
           ),
         ],
